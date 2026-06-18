@@ -5,7 +5,7 @@ designed for measuring low-resistance components in the range from µΩ to ~5 Ω
 
 **Status:** Hardware design complete — battery management circuit under revision
 
----
+
 
 ## Overview
 
@@ -18,7 +18,7 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 - PCB via and trace resistance
 - Connector and contact resistance
 
----
+
 
 ## Key Features
 
@@ -29,7 +29,7 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 - Li-ion battery powered with 5V USB charging
 - Flexible current and reference voltage control via PWM + RC filter + voltage divider
 
----
+
 
 ## Hardware
 
@@ -44,7 +44,7 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 
 **PCB:** 4-layer, designed in Altium Designer
 
----
+
 ## Repository Structure
 
 milliohmmeter-project/
@@ -56,7 +56,7 @@ firmware/ - STM32 firmware (in progress)
 docs/
 images/
 README.md 
----
+
 
 ## Measurement Principle
 
@@ -67,7 +67,7 @@ README.md
 5. Pulsed mode: current applied briefly, measurement taken at peak, then off
    → eliminates thermal resistance drift
 
----
+
 
 ## Specifications (target)
 
@@ -80,7 +80,7 @@ README.md
 | Power supply | Li-ion, USB-C 5V charging |
 | PCB layers | 4 |
 
----
+
 
 ## Project Status
 
@@ -93,14 +93,14 @@ README.md
 - [ ] Device calibration and testing
 - [ ] Enclosure design (SolidWorks)
 
----
+
 
 ## Author
 
 **runaway**
 Learning hardware engineering — this is my first complete PCB project.
 
----
+
 
 ## License
 
