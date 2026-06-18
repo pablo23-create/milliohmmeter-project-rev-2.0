@@ -45,7 +45,6 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 **PCB:** 4-layer, designed in Altium Designer
 
 ---
-
 ## Repository Structure
 
 milliohmmeter-project/
@@ -57,8 +56,6 @@ milliohmmeter-project/
 ├── docs/
 ├── images/
 └── README.md
-
-
 ---
 
 ## Measurement Principle
