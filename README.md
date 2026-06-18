@@ -45,18 +45,6 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 **PCB:** 4-layer, designed in Altium Designer
 
 
-## Repository Structure
-
-milliohmmeter-project/
-   hardware/
-      fabrication/
-         fabrication.pdf - Full schematic, PCB layers, 3D view, board stackup
-         bom.xlsx - Bill of Materials
-firmware/ - STM32 firmware (in progress)
-docs/
-images/
-README.md 
-
 
 ## Measurement Principle
 
