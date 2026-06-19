@@ -7,7 +7,7 @@
 
 ---
 
-- [ ] Technical Design Document
+- [~] Technical Design Document
 - [ ] Calculations
 - [ ] Debug & Testing
 - [ ] Firmware
