@@ -82,6 +82,13 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 - [ ] Enclosure design (SolidWorks)
 
 
+## Schematic & PCB
+
+[Schematic and PCB layers (PDF)](hardware/fabrication/Fabrication.pdf)
+[Bill of Materials](hardware/fabrication/Bill%20of%20Materials-111.xlsx)
+[PCB 3D renders](photos/)
+
+
 
 ## Author
 
