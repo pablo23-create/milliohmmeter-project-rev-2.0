@@ -35,7 +35,7 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 
 | Component | Description |
 |-----------|-------------|
-| STM32 | Main microcontroller — PWM generation, I2C, measurement control |
+| STM32 | Main microcontroller - PWM generation, I2C, measurement control |
 | INA226 | High-precision differential current/voltage sensor (I2C) |
 | Op-Amp + MOSFET | Stabilized current source |
 | SSD1306 | 128×64 OLED display |
