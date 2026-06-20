@@ -3,7 +3,7 @@
 A precision resistance measurement device based on STM32 and INA226,
 designed for measuring low-resistance components in the range from µΩ to ~5 Ω.
 
-**Status:** Hardware design complete - battery management circuit under revision
+**Status:** Documentation DC-DC block coming soon
 
 
 
