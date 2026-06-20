@@ -70,6 +70,12 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 
 
 
+## Status Legend
+
+- [x] Complete
+- [~] In progress
+- [ ] Planned
+
 ## Project Status
 
 - [x] Schematic design
