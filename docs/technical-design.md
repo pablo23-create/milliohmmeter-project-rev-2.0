@@ -11,6 +11,8 @@ INA226 supports 4-wire (Kelvin) connection — separate force and sense
 lines eliminate contact and lead resistance from the measurement,
 which is essential for µΩ-level accuracy.
 
+
+
 ## Pulsed Measurement Mode
 
 Continuous current flow causes resistive heating of the DUT,
@@ -19,6 +21,8 @@ leading to resistance drift during measurement.
 Pulsed mode applies current for ~100 ms per measurement cycle.
 This allows multiple consecutive measurements without thermal drift
 of the DUT and PCB traces.
+
+
 
 ## 4-Layer PCB
 
@@ -45,6 +49,8 @@ Two identical cascades do not shift the cutoff frequency —
 it remains at 159 Hz — but increase the roll-off slope
 from -20 dB/dec to -40 dB/dec, significantly improving
 PWM ripple suppression at 100 kHz.
+
+
 
 **Settling time:**
 - Single stage: 5τ = 5·RC = 5 ms
