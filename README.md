@@ -6,22 +6,6 @@ designed for measuring low-resistance components in the range from µΩ to ~5 Ω
 **Status:** Documentation DC-DC block coming soon
 
 
-## Status Legend
-
-- [x] Complete
-- [~] In progress
-- [ ] Planned
-
-## Project Status
-
-- [x] Schematic design
-- [x] PCB layout (4-layer)
-- [~] PCB manufacturing
-- [ ] Firmware development
-- [ ] Device calibration and testing
-- [ ] Enclosure design (SolidWorks)
-
-
 ## Overview
 
 This device measures ultra-low resistances using a stabilized pulsed current source.
@@ -84,9 +68,26 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 | PCB layers | 4 |
 
 
+## Status Legend
+
+- [x] Complete
+- [~] In progress
+- [ ] Planned
+
+## Project Status
+
+- [x] Schematic design
+- [x] PCB layout (4-layer)
+- [~] PCB manufacturing
+- [ ] Firmware development
+- [ ] Device calibration and testing
+- [ ] Enclosure design (SolidWorks)
+
+
+
 ## Schematic & PCB
 
-[Schematic and PCB layers (PDF)](hardware/fabrication/Fabrication.pdf)
+[Schematic and PCB layers (PDF)](hardware/Fabrication.pdf)
 [Bill of Materials](hardware/fabrication/Bill%20of%20Materials-111.xlsx)
 [PCB 3D renders](photos/)
 
