@@ -7,8 +7,9 @@
 
 ---
 
-- [~] Technical Design Document
-- [ ] Calculations
+- [x] ADC Block (OPA333, RC-filter, INA226, LP2985)
+- [~] DC-DC Block
+- [ ] Main Block
 - [ ] Debug & Testing
 - [ ] Firmware
 - [ ] Future Improvements
