@@ -93,7 +93,6 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 ## Author
 
 **runaway**
-Learning hardware engineering — this is my first complete PCB project.
 
 
 
