@@ -66,8 +66,8 @@ C = Ciss × (Ro + Riso) / Rf = 4380 × (5000 + 120) / 10000 ≈ 2243 pF
 → selected nearest standard value: 2.2 nF (C0G/NP0 for stability)
 
 Notes: 
-        -R11 value on schematic to be updated to 10 kΩ.
-        -The OPA333 and IRLR7843 combination itself works very slowly and is only suitable for linear modes, which is exactly what we are talking about.
+-R11 value on schematic to be updated to 10 kΩ.
+-The OPA333 and IRLR7843 combination itself works very slowly and is only suitable for linear modes, which is exactly what we are talking about.
 
 ## INA226 — Voltage Measurement
 
