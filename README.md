@@ -6,6 +6,21 @@ designed for measuring low-resistance components in the range from µΩ to ~5 Ω
 **Status:** Documentation DC-DC block coming soon
 
 
+## Status Legend
+
+- [x] Complete
+- [~] In progress
+- [ ] Planned
+
+## Project Status
+
+- [x] Schematic design
+- [x] PCB layout (4-layer)
+- [~] PCB manufacturing
+- [ ] Firmware development
+- [ ] Device calibration and testing
+- [ ] Enclosure design (SolidWorks)
+
 
 ## Overview
 
@@ -67,23 +82,6 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 | Display | OLED SSD1306 128×64 |
 | Power supply | Li-ion, USB-C 5V charging |
 | PCB layers | 4 |
-
-
-
-## Status Legend
-
-- [x] Complete
-- [~] In progress
-- [ ] Planned
-
-## Project Status
-
-- [x] Schematic design
-- [x] PCB layout (4-layer)
-- [~] PCB manufacturing
-- [ ] Firmware development
-- [ ] Device calibration and testing
-- [ ] Enclosure design (SolidWorks)
 
 
 ## Schematic & PCB
