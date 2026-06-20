@@ -1,6 +1,6 @@
-# ADC Block — Technical Design Document
+# ADC Block - Technical Design Document
 
-## OPA333 — Current Source Control
+## OPA333 - Current Source Control
 
 OPA333 was selected for its near-zero input offset voltage (zero-drift),
 rail-to-rail input/output, and wide input voltage range.
@@ -44,7 +44,7 @@ A stable reference at OPA333 input ensures the op-amp correctly
 drives the MOSFET gate, keeping the test current stable
 during pulsed measurements.
 
-## OPA333 + IRLR7843 — Feedback Stability
+## OPA333 + IRLR7843 - Feedback Stability
 
 IRLR7843 gate capacitance (Ciss = 4380 pF) combined with OPA333
 open-loop output impedance (~5 kΩ) and unity-gain bandwidth (350 kHz)
@@ -69,7 +69,7 @@ Notes:
 - R11 value on schematic to be updated to 10 kΩ.
 - The OPA333 and IRLR7843 combination itself works very slowly and is only suitable for linear modes, which is exactly what we are talking about.
 
-## INA226 — Voltage Measurement
+## INA226 - Voltage Measurement
 
 INA226 measures voltage drop directly across the DUT.
 Test current is fixed by the OPA333 control loop (via PWM reference),
@@ -83,7 +83,7 @@ Differential input traces (VIN+ and VIN−) are routed as short as
 possible following differential pair rules (tight coupling)
 for common-mode noise rejection.
 
-## INA226 — Input Filter (R8, R22, C21)
+## INA226 - Input Filter (R8, R22, C21)
 
 MT3608 DC-DC converter operates at 1.2 MHz. The measurement shunt
 sits on this supply line, making INA226 inputs susceptible to
@@ -98,7 +98,7 @@ Per INA226 datasheet recommendation:
 This filter attenuates switching noise above 1 MHz before it
 reaches INA226 inputs, preventing ADC corruption during measurement.
 
-## LP2985 — Analog Power Supply
+## LP2985 - Analog Power Supply
 
 LP2985 (5V version) provides a clean, isolated supply for OPA333
 and analog circuitry, separated from the noisy DC-DC boost converter rail.
