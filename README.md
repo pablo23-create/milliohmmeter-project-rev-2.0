@@ -3,7 +3,7 @@
 A precision resistance measurement device based on STM32 and INA226,
 designed for measuring low-resistance components in the range from µΩ to ~5 Ω.
 
-**Status:** Hardware design complete — battery management circuit under revision
+**Status:** Hardware design complete - battery management circuit under revision
 
 
 
@@ -22,7 +22,7 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 
 ## Key Features
 
-- Measurement range: µΩ — 5 Ω
+- Measurement range: µΩ - 5 Ω
 - Test current: 100 mA / 500 mA / 1000 mA (auto-range)
 - Pulsed measurement mode (thermal drift elimination)
 - OLED display SSD1306 (128×64)
@@ -61,7 +61,7 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 
 | Parameter | Value |
 |-----------|-------|
-| Measurement range | µΩ — 5 Ω |
+| Measurement range | µΩ - 5 Ω |
 | Test current | 100 / 500 / 1000 mA |
 | Accuracy | < 1% |
 | Display | OLED SSD1306 128×64 |
