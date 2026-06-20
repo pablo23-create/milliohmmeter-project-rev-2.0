@@ -74,9 +74,7 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 
 - [x] Schematic design
 - [x] PCB layout (4-layer)
-- [x] Gerber files generated
-- [ ] Battery management circuit revision
-- [ ] PCB manufacturing
+- [~] PCB manufacturing
 - [ ] Firmware development
 - [ ] Device calibration and testing
 - [ ] Enclosure design (SolidWorks)
