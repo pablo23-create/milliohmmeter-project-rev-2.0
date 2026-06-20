@@ -1,7 +1,7 @@
 # Technical Design Document
 
 ## INA226
----
+
 Selected for its flexibility and precision:
 - VBUS line enables software auto-range in future revisions
 - Maximum gain error: 0.01%
@@ -12,7 +12,7 @@ lines eliminate contact and lead resistance from the measurement,
 which is essential for µΩ-level accuracy.
 
 ## Pulsed Measurement Mode
----
+
 Continuous current flow causes resistive heating of the DUT,
 leading to resistance drift during measurement.
 
@@ -21,7 +21,7 @@ This allows multiple consecutive measurements without thermal drift
 of the DUT and PCB traces.
 
 ## 4-Layer PCB
----
+
 4-layer stackup was chosen for compactness, routing simplicity,
 and noise immunity.
 
@@ -33,7 +33,7 @@ events on power layers do not couple into the measurement signal
 path, reducing transient-induced errors.
 
 ## PWM-to-Reference Conversion (RC Filter)
----
+
 MCU generates PWM signal which is converted to a stable DC reference
 voltage for the op-amp via a two-stage RC filter.
 
@@ -56,7 +56,7 @@ by increasing PWM frequency — shorter settling time means
 shorter minimum pulse width.
 
 ## Voltage Divider (Post-Filter)
----
+
 A 10:1 voltage divider is placed after the two-stage RC filter.
 
 This serves two purposes:
