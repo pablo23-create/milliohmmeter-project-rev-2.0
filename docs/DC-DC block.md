@@ -15,7 +15,6 @@ Li-ion discharge range (3.0 V – 4.2 V).
 The boost output is enabled via Q1 (AO3401A, P-channel MOSFET) controlled
 by the EN signal from LTC2954 power-on controller.
 
----
 
 ## Component Selection
 
@@ -194,7 +193,6 @@ C1 provides local decoupling at the MT3608 input, stabilizing V_in
 during switching transients and reducing input ripple current drawn
 from the battery.
 
----
 
 ## PCB Layout Considerations
 
@@ -230,7 +228,6 @@ Its 75 dB PSRR at 1.2 MHz is the primary isolation barrier for the
 analog block. Placement close to OPA333 minimizes post-regulation
 trace length and reduces pickup area.
 
----
 
 ## Power Budget
 
@@ -254,18 +251,4 @@ MT3608 maximum deliverable output current at V_in = 3.7 V:
 
 1.2 A peak load leaves ~1.05 A margin.
 
----
-
-## Summary
-
-| Component    | Part                 | Role                                    |
-|--------------|----------------------|-----------------------------------------|
-| Boost IC     | MT3608               | 1.2 MHz PWM boost controller            |
-| Power switch | AO3401A (Q1)         | EN-controlled input switch              |
-| Inductor     | Bourns SRP5030T-4R7M | 4.7 µH shielded, Isat = 6 A            |
-| Rectifier    | SS36AHL (D1)         | Schottky 3 A, 60 V, low leakage        |
-| Output cap   | 22 µF X8R (C3)       | Low-ESR filter, eff. ~4.4 µF @ 5.5 V  |
-| FB divider   | 820 kΩ / 100 kΩ      | Sets V_out = 5.52 V                     |
-| Digital LDO  | LP5907 3.3 V (U3)    | STM32 + SSD1306 supply                  |
-| Analog LDO   | LP2985 5 V           | Isolated analog supply for OPA333       |
 
