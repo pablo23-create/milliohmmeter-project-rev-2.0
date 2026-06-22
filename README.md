@@ -19,17 +19,6 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 
 
 
-## Key Features
-
-- Measurement range: µΩ - 5 Ω
-- Test current: 100 mA / 500 mA / 1000 mA (auto-range)
-- Pulsed measurement mode (thermal drift elimination)
-- OLED display SSD1306 (128×64)
-- Li-ion battery powered with 5V USB charging
-- Flexible current and reference voltage control via PWM + RC filter + voltage divider
-
-
-
 ## Hardware
 
 | Component | Description |
