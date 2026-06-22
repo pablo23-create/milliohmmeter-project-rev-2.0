@@ -171,10 +171,10 @@ at 1.2 MHz) attenuates this ripple by ~5600x before it reaches the
 analog supply, so measurement accuracy is not compromised. However,
 adding a second output capacitor is recommended.
 
-**Recommended fix — add second 22 µF X8R in parallel:**
+**Recommended fix — add second 100 µF X8R in parallel:**
 
-    C_eff_total = 4.4 + 4.4 = 8.8 uF
-    dV_out = (1.2 x 0.327) / (8.8uF x 1.2MHz) = 37.4 mV
+    C_eff_total = 4.4 + 19 = 23.4 uF
+    dV_out = (1.2 x 0.327) / (23.4uF x 1.2MHz) = 13,9 mV
 
 Ripple reduced by 2x with minimal board area impact (same footprint).
 
