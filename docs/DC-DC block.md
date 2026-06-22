@@ -56,27 +56,35 @@ gate voltage divider to ensure reliable turn-on/turn-off.
 At 1.2 MHz switching frequency, a smaller inductance is sufficient to
 maintain continuous conduction mode (CCM) without excessive ripple current.
 
-Ripple current estimate at $V_{in} = 3.7\ V$:
+Duty cycle at V_in = 3.7 V:
 
-$$D = 1 - \frac{V_{in}}{V_{out}} = 1 - \frac{3.7}{5.5} = 0.327$$
+    D = 1 - V_in / V_out = 1 - 3.7 / 5.5 = 0.327
 
-$$\Delta I_L = \frac{V_{in} \times D}{L \times f_{sw}} = \frac{3.7 \times 0.327}{4.7\mu \times 1.2M} \approx 0.215\ A$$
+Inductor ripple current:
 
-Ripple ΔI_L ≈ 215 mA — well within acceptable range.
+    dI_L = (V_in x D) / (L x f_sw)
+         = (3.7 x 0.327) / (4.7uH x 1.2MHz)
+         = 1.21 / 5.64
+         = 0.215 A
+
+Ripple dI_L = 215 mA — well within acceptable range.
 
 **Peak current at maximum load (1.2 A):**
 
-$$I_{peak} = I_{out} \times \frac{V_{out}}{V_{in} \times \eta} + \frac{\Delta I_L}{2}
-= 1.2 \times \frac{5.5}{3.7 \times 0.85} + 0.108 \approx 2.21\ A$$
+    I_peak = I_out x (V_out / (V_in x eta)) + dI_L / 2
+           = 1.2 x (5.5 / (3.7 x 0.85)) + 0.108
+           = 2.10 + 0.11
+           = 2.21 A
 
-I_sat = 6 A provides a safety margin of 2.7× at full load.
+I_sat = 6 A provides a safety margin of 2.7x at full load.
 
 **MT3608 current limit verification:**
 
-$$I_{out,max} = \frac{(I_{sw,max} - \Delta I_L / 2) \times V_{in} \times \eta}{V_{out}}
-= \frac{(4 - 0.108) \times 3.7 \times 0.85}{5.5} \approx 2.25\ A$$
+    I_out_max = (I_sw_max - dI_L / 2) x V_in x eta / V_out
+              = (4 - 0.108) x 3.7 x 0.85 / 5.5
+              = 2.25 A
 
-1.2 A load is within MT3608 capability with ~1.9× margin.
+1.2 A load is within MT3608 capability with ~1.9x margin.
 
 **Why shielded:**
 The SRP5030T series uses a closed magnetic core. This suppresses fringing
@@ -88,19 +96,19 @@ in the ADC block.
 
 Output voltage is set by a resistive divider on the FB pin:
 
-$$V_{out} = V_{ref} \times \left(1 + \frac{R_2}{R_3}\right)$$
+    V_out = V_ref x (1 + R2 / R3)
 
-With $V_{ref} = 0.6\ V$ and target $V_{out} = 5.5\ V$:
+With V_ref = 0.6 V and target V_out = 5.5 V:
 
-$$\frac{R_2}{R_3} = \frac{V_{out}}{V_{ref}} - 1 = \frac{5.5}{0.6} - 1 = 8.167$$
+    R2 / R3 = V_out / V_ref - 1 = 5.5 / 0.6 - 1 = 8.167
 
-Choosing $R_3 = 100\ k\Omega$:
+Choosing R3 = 100 kΩ:
 
-$$R_2 = 816.7\ k\Omega \rightarrow \textbf{820\ k\Omega}\ (E24\ series)$$
+    R2 = 100k x 8.167 = 816.7 kΩ  →  820 kΩ (E24 series)
 
 Verification:
 
-$$V_{out} = 0.6 \times \left(1 + \frac{820k}{100k}\right) = 0.6 \times 9.2 = \textbf{5.52\ V}$$
+    V_out = 0.6 x (1 + 820k / 100k) = 0.6 x 9.2 = 5.52 V
 
 Error: +0.4% — acceptable. The 5.5 V target is a headroom rail, not a
 precision reference.
@@ -122,8 +130,8 @@ precision reference.
 
 SS36AHL is an improved variant of SS36 with lower reverse leakage current
 and better thermal stability. V_R = 60 V exceeds worst-case voltage spikes
-($V_{out}$ + switching ringing) with margin. Handles full load current of
-1.2 A with 2.5× headroom.
+(V_out + switching ringing) with margin. Handles full load current of
+1.2 A with 2.5x headroom.
 
 ### Output Capacitor — C3, 22 µF Ceramic (X8R)
 
@@ -144,31 +152,32 @@ The MT3608 datasheet reference design specifies 22 µF nominal but does
 not account for derating at operating voltage.
 
 At 5.5 V DC bias, the 22 µF X8R capacitor degrades to approximately
-**~4.4 µF effective capacitance** (~80% loss).
+~4.4 µF effective capacitance (~80% loss).
 
 Impact on output voltage ripple at maximum load (1.2 A):
 
-$$\Delta V_{out} = \frac{I_{out} \times D}{C_{eff} \times f_{sw}}
-= \frac{1.2 \times 0.327}{4.4\mu \times 1.2M} \approx \textbf{74.8\ mV}$$
+    dV_out = (I_out x D) / (C_eff x f_sw)
+           = (1.2 x 0.327) / (4.4uF x 1.2MHz)
+           = 0.392 / 5.28
+           = 74.8 mV
 
 For comparison, at nominal 22 µF without derating:
 
-$$\Delta V_{out} = \frac{1.2 \times 0.327}{22\mu \times 1.2M} \approx \textbf{14.9\ mV}$$
+    dV_out = (1.2 x 0.327) / (22uF x 1.2MHz) = 14.9 mV
 
-Derating increases ripple by 5×. At 1.2 A load this is significant —
+Derating increases ripple by 5x. At 1.2 A load this is significant —
 74.8 mV ripple on the 5.5 V rail reduces the effective headroom for
-LP2985 from 520 mV to ~445 mV under worst case. LP2985 (PSR = 75 dB
-at 1.2 MHz) attenuates this ripple by ~5600× before it reaches the
+LP2985 from 520 mV to ~445 mV under worst case. LP2985 (PSRR = 75 dB
+at 1.2 MHz) attenuates this ripple by ~5600x before it reaches the
 analog supply, so measurement accuracy is not compromised. However,
 adding a second output capacitor is recommended.
 
 **Recommended fix — add second 22 µF X8R in parallel:**
 
-$$C_{eff,total} = 4.4 + 4.4 = 8.8\ \mu F$$
+    C_eff_total = 4.4 + 4.4 = 8.8 uF
+    dV_out = (1.2 x 0.327) / (8.8uF x 1.2MHz) = 37.4 mV
 
-$$\Delta V_{out} = \frac{1.2 \times 0.327}{8.8\mu \times 1.2M} \approx \textbf{37.4\ mV}$$
-
-Ripple reduced by 2× with minimal board area impact (same footprint).
+Ripple reduced by 2x with minimal board area impact (same footprint).
 
 **INA226 averaging as supplementary ripple mitigation:**
 The INA226 ADC supports hardware averaging (up to 1024 samples).
@@ -225,21 +234,23 @@ trace length and reduces pickup area.
 
 ## Power Budget
 
-| Rail          | Consumer              | Estimated Current |
-|---------------|-----------------------|-------------------|
-| 3.3 V (LP5907)| STM32                 | ~50 mA            |
-| 3.3 V (LP5907)| SSD1306 OLED          | ~20 mA            |
-| 5 V (LP2985)  | OPA333                | ~5 mA             |
-| 5.5 V         | LDO quiescent + misc  | ~5 mA             |
-| 5.5 V         | Current source (DUT)  | ~1100 mA (peak)   |
-| **Total**     |                       | **~1180 mA**      |
+| Rail           | Consumer             | Estimated Current |
+|----------------|----------------------|-------------------|
+| 3.3 V (LP5907) | STM32                | ~50 mA            |
+| 3.3 V (LP5907) | SSD1306 OLED         | ~20 mA            |
+| 5 V (LP2985)   | OPA333               | ~5 mA             |
+| 5.5 V          | LDO quiescent + misc | ~5 mA             |
+| 5.5 V          | Current source (DUT) | ~1100 mA (peak)   |
+| **Total**      |                      | **~1180 mA**      |
 
 Peak load occurs only during measurement pulses (~100 ms). Average
 current draw is significantly lower due to the pulsed measurement mode.
 
-MT3608 maximum deliverable output current at $V_{in} = 3.7\ V$:
+MT3608 maximum deliverable output current at V_in = 3.7 V:
 
-$$I_{out,max} \approx 2.25\ A$$
+    I_out_max = (I_sw_max - dI_L / 2) x V_in x eta / V_out
+              = (4 - 0.108) x 3.7 x 0.85 / 5.5
+              = 2.25 A
 
 1.2 A peak load leaves ~1.05 A margin.
 
@@ -247,13 +258,13 @@ $$I_{out,max} \approx 2.25\ A$$
 
 ## Summary
 
-| Component      | Part                 | Role                                        |
-|----------------|----------------------|---------------------------------------------|
-| Boost IC       | MT3608               | 1.2 MHz PWM boost controller                |
-| Power switch   | AO3401A (Q1)         | EN-controlled input switch                  |
-| Inductor       | Bourns SRP5030T-4R7M | 4.7 µH shielded, Isat = 6 A                |
-| Rectifier      | SS36AHL (D1)         | Schottky 3 A, 60 V, low leakage             |
-| Output cap     | 22 µF X8R (C3)       | Low-ESR filter, eff. ~4.4 µF @ 5.5 V       |
-| FB divider     | 820 kΩ / 100 kΩ      | Sets V_out = 5.52 V                         |
-| Digital LDO    | LP5907 3.3 V (U3)    | STM32 + SSD1306 supply                      |
-| Analog LDO     | LP2985 5 V           | Isolated analog supply for OPA333           |
+| Component    | Part                 | Role                                    |
+|--------------|----------------------|-----------------------------------------|
+| Boost IC     | MT3608               | 1.2 MHz PWM boost controller            |
+| Power switch | AO3401A (Q1)         | EN-controlled input switch              |
+| Inductor     | Bourns SRP5030T-4R7M | 4.7 µH shielded, Isat = 6 A            |
+| Rectifier    | SS36AHL (D1)         | Schottky 3 A, 60 V, low leakage        |
+| Output cap   | 22 µF X8R (C3)       | Low-ESR filter, eff. ~4.4 µF @ 5.5 V  |
+| FB divider   | 820 kΩ / 100 kΩ      | Sets V_out = 5.52 V                     |
+| Digital LDO  | LP5907 3.3 V (U3)    | STM32 + SSD1306 supply                  |
+| Analog LDO   | LP2985 5 V           | Isolated analog supply for OPA333       |
