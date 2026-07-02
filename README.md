@@ -41,6 +41,8 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 4. Resistance is calculated: R = U / I
 5. Pulsed mode: current applied briefly, measurement taken at peak, then off
    → eliminates thermal resistance drift
+6. 4-wire (Kelvin) connection — separate current injection and voltage
+   sensing paths eliminate lead and contact resistance.
 
 
 
