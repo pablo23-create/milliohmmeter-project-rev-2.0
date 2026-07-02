@@ -9,7 +9,7 @@
 
 - [x] ADC Block (OPA333, RC-filter, INA226, LP2985)
 - [x] DC-DC Block
-- [~] Main Block
+- [x] Main Block
+- [~] Firmware
 - [ ] Debug & Testing
-- [ ] Firmware
 - [ ] Future Improvements
