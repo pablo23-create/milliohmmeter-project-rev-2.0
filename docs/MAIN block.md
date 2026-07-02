@@ -8,11 +8,9 @@ ADC and DC-DC blocks:
 - STM32F103C8T6 microcontroller and pin assignment
 - Power-on sequencing (LTC2954 power-on controller)
 - Digital 3.3 V LDO (LP5907)
-- Li-ion battery system (18650 cell, TP4056 charger, DW01A BMS)
+- Li-ion battery system (TP4056 charger, DW01A BMS)
 - OLED display (SSD1306)
-- User input (button, rotary encoder)
-- 4-wire Kelvin test terminals
-- USB-C input and ESD protection
+- USB-C input
 - PCB layout, mechanical, and thermal integration
 
 Detailed current-source analysis (OPA333, IRLR7843, INA226 filters)
@@ -215,5 +213,3 @@ confirmation (debouncing) and the KILL timing for orderly
 shutdown. Per LTC2954 datasheet:
 
     t_delay = R_on_pin × C23 + (internal PDC charge time)
-
-C23 = 
