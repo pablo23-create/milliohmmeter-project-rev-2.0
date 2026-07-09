@@ -3,7 +3,6 @@
 A running log of mistakes, wrong turns, and how they were fixed.
 Format: what went wrong → why → what was done instead.
 
----
 
 ## Rev 1 → Rev 2
 
