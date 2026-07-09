@@ -6,7 +6,7 @@ This document covers all hardware subsystems not addressed by the
 ADC and DC-DC blocks:
 
 - STM32F103C8T6 microcontroller and pin assignment
-- Power-on sequencing (LTC2954 power-on controller)
+- Power-on sequencing (discrete latch: AO3401A + BSS138 + BAT54C)
 - Digital 3.3 V LDO (LP5907)
 - Li-ion battery system (TP4056 charger, DW01A BMS)
 - OLED display (SSD1306)
@@ -25,8 +25,8 @@ documented separately in the firmware folder.
 ## STM32F103C8T6 — Pin Assignment
 
 The MCU is the central controller: it generates PWM, drives I2C
-peripherals, manages battery monitoring, and holds the "firmware
-alive" feedback to the LTC2954 power-on controller.
+peripherals, manages battery monitoring, and holds the power latch
+via PB3 to keep the system powered after button release.
 
 ### Active Pin Map
 
@@ -40,7 +40,7 @@ alive" feedback to the LTC2954 power-on controller.
 | PC14   | OSC_IN            | Input     | HSE crystal pin                            |
 | PC15   | OSC_OUT           | Output    | HSE crystal pin                            |
 | PB0    | STATUS_CHARGE     | Input     | 5V-USB presence via 47k/82k divider        |
-| PB1    | PB_FEEDBACK       | Output    | Firmware-running feedback → LTC2954        |
+| PB3    | PWR_HOLD          | Output    | Power latch hold — keeps AO3401A gate low  |
 | PB2    | BOOT1             | Input     | Boot mode select, 100 kΩ pull-down         |
 | PB6    | SCL               | I/O       | I2C clock — INA226, SSD1306                |
 | PB7    | SDA               | I/O       | I2C data — INA226, SSD1306                 |
@@ -141,21 +141,36 @@ and draws < 100 µA from VBUS even when the device is off.
 STATUS_CHARGE is sampled by the firmware to enable battery
 voltage display mode on OLED and to detect charging cycles.
 
-### PB1 — Firmware Feedback to LTC2954
+### PB3 — Power Latch Hold (PWR_HOLD)
 
-PB1 is the firmware-running feedback signal to LTC2954. While
-the firmware is alive (firmware loop is in normal state), PB1
-is driven HIGH, holding the LTC2954 EN output active so that
-the boost converter remains enabled.
+PB3 controls the discrete power latch that keeps the system powered
+after the user releases the power button.
 
-If the firmware hangs (e.g. infinite loop, HardFault without
-recovery), PB1 drops, LTC2954 KILL timing fires, and the system
-shuts down cleanly via Q1.
+**Latch circuit (replaces LTC2954):**
+- SW1 (power button) pulls the gate of Q1 (AO3401A, P-channel) to GND
+  on press, turning Q1 on and powering the system
+- BSS138 (N-channel MOSFET) gate is driven by PB3 via a 1 kΩ
+  series resistor; BSS138 source-gate has a 1 kΩ pull-down to GND
+- BAT54C dual Schottky diode assembly: one diode from SW1, one from
+  BSS138 drain, both feeding Q1 gate — OR-logic, either can hold
+  Q1 gate low independently
 
-This provides a hardware WatchDog independent of the internal
-IWDG. For belt-and-braces security, the firmware also runs an
-IWDG that, on timeout, intentionally drives PB1 low so that
-the hardware WatchDog also triggers.
+**Power-on sequence:**
+1. User presses SW1 → Q1 gate pulled to GND via SW1 → Q1 conducts
+   → MT3608 boost starts → LDOs come up → STM32 boots
+2. STM32 firmware initializes → drives PB3 HIGH within first 100 ms
+   → BSS138 turns on → holds Q1 gate low via BAT54C
+3. User releases SW1 → system remains powered via BSS138 latch
+
+**Power-off sequence:**
+1. User presses SW1 again (or firmware initiates shutdown)
+2. Firmware drives PB3 LOW → BSS138 turns off
+3. Q1 gate released → Q1 turns off → system powers down
+
+This is a fully discrete implementation with no dedicated power
+controller IC. Shutdown is always firmware-initiated — there is no
+hardware watchdog timeout as with LTC2954. IWDG should be used
+as the primary fault recovery mechanism.
 
 ### PB2 / BOOT0 — Boot Mode Selection
 
@@ -190,26 +205,26 @@ change with no hardware rework required.
 
 
 
-## LTC2954 — Power-On Controller
+## Power-On Controller — Discrete Latch (AO3401A + BSS138 + BAT54C)
 
-LTC2954 manages push-button power-on/off. The MCU alone cannot
-latch its own power supply — once the user releases the button,
-VBAT to the boost converter would drop. LTC2954 provides
-hardware-latched EN that keeps Q1 conducting until firmware
-orderly issues a shutdown.
+The discrete latch replaces a dedicated power controller IC (previously LTC2954).
+The MCU cannot latch its own supply directly — once the user releases the button,
+VBAT to the boost converter would drop. The latch holds Q1 gate low after boot
+until firmware explicitly releases it.
 
 ### Sequencing
 
-1. User presses button (≈ 100 ms debounced) →
-   LTC2954 drives EN high → Q1 (AO3401A P-channel MOSFET) conducts
-   → MT3608 boost starts → LP2985 / LP5907 come up → STM32 boots
-2. STM32 firmware initializes → drives PB1 HIGH within first 100 ms
-3. After this point the firmware "owns" the power state
+1. User presses SW1 (≥ ~50 ms debounce in firmware) →
+   Q1 (AO3401A) gate pulled to GND via SW1 + BAT54C →
+   Q1 conducts → MT3608 boost starts → LP2985 / LP5907 come up → STM32 boots
+2. STM32 firmware initializes → drives PB3 HIGH within first 100 ms →
+   BSS138 turns on → holds Q1 gate low via BAT54C → latch engaged
+3. User releases SW1 → system remains powered via BSS138
 
-### C23 — Power-Down Delay
+### Shutdown
 
-C23 on the PDT pin sets the long-press delay for power-on
-confirmation (debouncing) and the KILL timing for orderly
-shutdown. Per LTC2954 datasheet:
+Firmware drives PB3 LOW → BSS138 turns off → Q1 gate released → system powers down.
 
-    t_delay = R_on_pin × C23 + (internal PDC charge time)
+Power-off is always firmware-initiated. No hardware kill timer exists.
+IWDG is the primary fault recovery path — on timeout, reset handler
+must drive PB3 LOW before re-entering the main loop or halting.
