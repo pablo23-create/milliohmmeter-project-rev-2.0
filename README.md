@@ -22,7 +22,7 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 
 | Component | Description |
 |-----------|-------------|
-| STM32 | Main microcontroller - PWM generation, I2C, measurement control |
+| STM32F103C8T6 | Main microcontroller - PWM generation, I2C, measurement control |
 | INA226 | High-precision differential current/voltage sensor (I2C) |
 | Op-Amp + MOSFET | Stabilized current source |
 | SSD1306 | 128×64 OLED display |
@@ -74,6 +74,37 @@ Pulsed measurement mode prevents resistance drift caused by self-heating of the 
 - [ ] Enclosure design (SolidWorks)
 
 
+
+## Firmware Architecture
+
+**Toolchain:** STM32CubeIDE, HAL, bare-metal (no RTOS)
+
+**Module structure:**
+
+| File | Responsibility |
+|------|----------------|
+| `ina226.c/.h` | INA226 init, register config, voltage read via I2C |
+| `ssd1306.c/.h` | OLED display driver |
+| `current_source.c/.h` | PWM control, current range selection |
+| `measurement.c/.h` | Measurement cycle, averaging, zero calibration |
+| `main.c` | Init, superloop |
+
+**Measurement cycle (single reading):**
+1. Select current range (100 / 500 / 1000 mA) — auto-selected by result
+2. Enable PWM → wait settling time (RC filter + OPA333 loop)
+3. Read INA226 voltage across DUT
+4. Disable PWM
+5. R = U / I
+
+**Zero calibration:**
+On startup with probes shorted — measure residual offset, store in Flash, subtract from all subsequent readings.
+
+**Firmware development order:**
+1. INA226 driver — verify I2C communication and register reads
+2. SSD1306 driver — needed for all subsequent debugging
+3. PWM configuration — verify current flow with oscilloscope
+4. Measurement cycle assembly
+5. Auto-range and zero calibration
 
 ## Schematic & PCB
 
