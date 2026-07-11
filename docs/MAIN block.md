@@ -37,8 +37,8 @@ via PB3 to keep the system powered after button release.
 | PA13   | SWDIO             | I/O       | SWD programming data, 120 Ω series R       |
 | PA14   | SWCLK             | Input     | SWD programming clock, 120 Ω series R      |
 | PC13   | LED_STATUS        | Output    | "Firmware is alive" indicator LED          |
-| PC14   | OSC_IN            | Input     | HSE crystal pin                            |
-| PC15   | OSC_OUT           | Output    | HSE crystal pin                            |
+| PD0    | OSC_IN            | Input     | HSE crystal pin                            |
+| PD1    | OSC_OUT           | Output    | HSE crystal pin                            |
 | PB0    | STATUS_CHARGE     | Input     | 5V-USB presence via 47k/82k divider        |
 | PB3    | PWR_HOLD          | Output    | Power latch hold — keeps AO3401A gate low  |
 | PB2    | BOOT1             | Input     | Boot mode select, 100 kΩ pull-down         |
