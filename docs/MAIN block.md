@@ -109,7 +109,7 @@ PC13 has the limitation that the LED remains in an
 project on-board reset is not a user-visible event — the
 100 ms lamp test during boot is acceptable.
 
-### PC14 / PC15 — HSE Crystal (8 MHz)
+### PD0 / PD1 — HSE Crystal (8 MHz)
 
 External 8 MHz HSE crystal drives the PLL to produce the
 72 MHz SYSCLK. Crystal load capacitor selection:
@@ -125,6 +125,11 @@ of ±1% — at µΩ measurement levels this dominates accuracy budget.
 The crystal is placed close to the OSC pins with a guarded
 GND loop around it to prevent 1.2 MHz MT3608 switching noise
 from coupling into the oscillator load capacitance.
+
+Note: on the LQFP48 package, PD0/PD1 are the only pins usable
+as OSC_IN/OSC_OUT for HSE — they cannot be repurposed as GPIO
+in this package. PC14/PC15 are OSC32_IN/OSC32_OUT (LSE, 32.768
+kHz) and are unused here since this design has no RTC crystal.
 
 ### PB0 — USB Power Detect (STATUS_CHARGE)
 
